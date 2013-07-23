@@ -7,8 +7,8 @@ describe DecentExposure::StrongParametersStrategy do
       double("Inflector", :plural? => plural)
     end
     let(:plural) { false }
-    let(:request) { stub(:get? => true) }
-    let(:controller) { stub(:params => {}, :request => request) }
+    let(:request) { double(:get? => true) }
+    let(:controller) { double(:params => {}, :request => request) }
     let(:options) { {} }
     let(:strategy) { described_class.new(controller, inflector, options) }
 
@@ -24,17 +24,17 @@ describe DecentExposure::StrongParametersStrategy do
     end
 
     context "for a get request" do
-      let(:request) { stub(:get? => true, :delete? => false) }
+      let(:request) { double(:get? => true, :delete? => false) }
       it { should be_false }
     end
 
     context "for a delete request" do
-      let(:request) { stub(:delete? => true, :get? => false) }
+      let(:request) { double(:delete? => true, :get? => false) }
       it { should be_false }
     end
 
     context "for a post/put/patch request" do
-      let(:request) { stub(:get? => false, :delete? => false) }
+      let(:request) { double(:get? => false, :delete? => false) }
 
       context "and the :attributes option is set" do
         let(:options) { { :attributes => :my_attributes } }
